@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
 
 const todoSchema = new mongoose.Schema({
-  name: {
+  topic: {
     type: String,
-    required: [true, "must provide name"],
-    maxlength : [10, "name can not be more than 10 characters"]
+    required: [true, "must provide a topic"],
+    maxlength: [20, "topic can not be more than 20 characters"],
+  },
+  details: {
+    type: String,
+    required: [true, "must provide details"],
+    maxlength: [40, "details can not be more than 40 characters"],
   },
   isCompleted: {
     type: Boolean,
