@@ -1,8 +1,21 @@
-import { motion } from "framer-motion";
+import React from "react";
 import "./Task.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import Modal from 'react-modal';
+import Modals from "../Modals/Modal";
+
 const Task = ({ isCompleted, topic, details, id }) => {
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   const _delete = (_id) => {
     axios
       .delete(`http://localhost:5000/todos/${_id}`)
@@ -46,7 +59,16 @@ const Task = ({ isCompleted, topic, details, id }) => {
         <motion.button
           whileTap={{ scale: 2 }}
           className="ball task__edit"
+          onClick={openModal}
         ></motion.button>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="Example Modal"
+          className="modal"
+        >
+          <Modals id={id} topic ={topic} details = {details}/>
+        </Modal>
         <motion.button
           whileTap={{ scale: 2 }}
           className="ball task__done"

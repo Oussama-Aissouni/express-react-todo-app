@@ -1,55 +1,53 @@
-import React from 'react';
-import Popup from 'reactjs-popup';
+import React, { useState } from 'react';
 import './PopUp.css';
-const PopUp = () => {
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+
+const PopUp = ({id, topic, details}) => {
+  const [newTopic, setNewTopic] = useState(String(topic));
+  const [newDetails, setNewDetails] = useState(String(details));
+
+  const updateTask = () => {
+    axios
+      .patch(`http://localhost:5000/todos/${id}`, {
+        topic: String(newTopic),
+        details: String(newDetails),
+      })
+      .then(() => toast.success("Task Updated Successfully"))
+      .catch(function (error) {
+        console.log(error);
+      });
+    };
   return (
-    <Popup
-    trigger={<button className="button"> Open Modal </button>}
-    modal
-    nested
-  >
-    {close => (
-      <div className="modal">
-        <button className="close" onClick={close}>
-          &times;
-        </button>
-        <div className="header"> Modal Title </div>
-        <div className="content">
-          {' '}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
-          Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
-          delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
-          commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
-          explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
-        </div>
-        <div className="actions">
-          <Popup
-            trigger={<button className="button"> Trigger </button>}
-            position="top center"
-            nested
-          >
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-              magni omnis delectus nemo, maxime molestiae dolorem numquam
-              mollitia, voluptate ea, accusamus excepturi deleniti ratione
-              sapiente! Laudantium, aperiam doloribus. Odit, aut.
-            </span>
-          </Popup>
+    <div>
+      <h4 className="pop-up__title">Are you sure to edit ?</h4>
+      <form>
+        <input
+          maxLength={50}
+          type="text"
+          className="pop-up__input"
+          placeholder={"you editing " + topic}
+          onChange={(e) => setNewTopic(e.target.value)}
+        />
+        <textarea
+          maxLength={75}
+          className="pop-up__content"
+          placeholder="edit content ..."
+          onChange={(e) => setNewDetails(e.target.value)}
+        ></textarea>
+        <div className="pop-up__buttons">
+          <button type="submit" className="pop-up__button ok" onClick={updateTask}>
+            confirm
+          </button>
           <button
-            className="button"
-            onClick={() => {
-              console.log('modal closed ');
-              close();
-            }}
+            type="submit"
+            className="pop-up__button no"
           >
-            close modal
+            Cancel
           </button>
         </div>
-      </div>
-    )}
-  </Popup>
+      </form>
+    </div>
   );
 };
 export default PopUp;

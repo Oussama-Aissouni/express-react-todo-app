@@ -28,6 +28,11 @@ const AddTask = () => {
         });
     }
   };
+  const clearFields = () => 
+  {
+    setTopic("")
+    setDetails("")
+  }
   return (
     <div className="add-task">
       <ToastContainer />
@@ -47,6 +52,7 @@ const AddTask = () => {
             className="input add-task__inputs__name"
             type="text"
             placeholder="your task topic"
+            value={topic}
             onChange={(e) => setTopic(e.target.value)}
           />
         </div>
@@ -57,6 +63,7 @@ const AddTask = () => {
             className="input add-task__inputs__content"
             type="text"
             placeholder="more info about task"
+            value={details}
             onChange={(e) => setDetails(e.target.value)}
           />
         </div>
@@ -64,7 +71,7 @@ const AddTask = () => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           className="add-task__inputs__submit"
-          onClick={createTask}
+          onClick={() => { createTask(); clearFields();}}
         >
           Create New Task
         </motion.button>
