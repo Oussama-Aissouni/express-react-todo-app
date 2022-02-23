@@ -22,11 +22,16 @@ const deleteTodo = async (req, res) => {
   res.status(200).json({ todo });
 };
 
+const deleteAll = async (req, res) => {
+  const todos = await Todo.deleteMany();
+  res.status(200).json(todos.deletedCount)
+};
+
 const updateTodo = async (req, res) => {
   const { id: todoId } = req.params;
   const todo = await Todo.findOneAndUpdate({ _id: todoId }, req.body, {
     new: true,
-    runValidators : true
+    runValidators: true,
   });
   res.status(200).json({ todo });
 };
@@ -37,4 +42,5 @@ module.exports = {
   getTodo,
   deleteTodo,
   updateTodo,
+  deleteAll,
 };

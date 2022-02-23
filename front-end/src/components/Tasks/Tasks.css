@@ -46,3 +46,6 @@
     font-weight: 300;
     margin-top: 20px;
   }
+  .tasks__title__icon{
+    width: 30px;
+  }

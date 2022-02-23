@@ -39,7 +39,7 @@ const AddTask = () => {
       <div className="add-task__title">
         <img
           className="add-task__title__icon"
-          src="./svg/add-task.svg"
+          src="./icons/note-pad.png"
           alt=""
         />
         <h2 className="add-task__title__text">Make New Task</h2>
