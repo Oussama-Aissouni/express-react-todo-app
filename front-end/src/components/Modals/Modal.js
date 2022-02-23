@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
-import Modal from "react-modal";
+import axios from "axios";
 import { toast } from "react-toastify";
+import env from "react-dotenv"
 import "./Modal.css";
 
 const Modals = ({ id, topic, details }) => {
@@ -10,7 +10,7 @@ const Modals = ({ id, topic, details }) => {
 
   const updateTask = () => {
     axios
-      .patch(`http://localhost:5000/todos/${id}`, {
+      .patch(`${env.ORIGIN}${id}`, {
         topic: String(newTopic),
         details: String(newDetails),
       })

@@ -4,6 +4,7 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import "./AddTask.css";
 import { useState } from "react";
+import env from "react-dotenv";
 
 const AddTask = () => {
   const [topic, setTopic] = useState("");
@@ -17,7 +18,7 @@ const AddTask = () => {
       err();
     else {
       axios
-        .post("http://localhost:5000/todos/", {
+        .post(env.ORIGIN, {
           topic: String(topic),
           details: String(details),
           isCompleted: Boolean(false),

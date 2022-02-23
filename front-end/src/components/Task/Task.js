@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import Modal from 'react-modal';
 import Modals from "../Modals/Modal";
+import env from "react-dotenv"
 
 const Task = ({ isCompleted, topic, details, id }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -18,12 +19,12 @@ const Task = ({ isCompleted, topic, details, id }) => {
   }
   const _delete = (_id) => {
     axios
-      .delete(`http://localhost:5000/todos/${_id}`)
+      .delete(`${env.ORIGIN}${_id}`)
       .then(() => toast.dark("deleted Successfully"))
       .catch((err) => console.log(err));
   };
   const _done = (_id) => {
-    axios.patch(`http://localhost:5000/todos/${_id}`, {
+    axios.patch(`${env.ORIGIN}${_id}`, {
       isCompleted: Boolean(true),
     });
   };

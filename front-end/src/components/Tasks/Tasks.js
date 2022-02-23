@@ -3,27 +3,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import Task from "../Task/Task";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import env from "react-dotenv"
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() =>
     axios
-      .get("http://localhost:5000/todos/")
+      .get(env.ORIGIN)
       .then((response) => setTasks(response.data.todo))
       .catch((err) => console.log(err))
   );
 
   const deleteAll = async () => {
     await axios
-      .delete("http://localhost:5000/todos/") 
+      .delete(env.ORIGIN) 
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="tasks">
       <div className="tasks__title">
-        <img className="tasks__title__icon" src="./icons/all-tasks.png" alt="" />
+        <img className="tasks__title__icon" src="./icons/all-tasks" alt="" />
         <h2 className="tasks__title__text">All Tasks</h2>
       </div>
       <div className="tasks__sort">
