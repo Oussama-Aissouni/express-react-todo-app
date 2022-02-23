@@ -19,6 +19,7 @@ front-end/.env.development.local
 front-end/.env.test.local
 front-end/.env.production.local
 front-end/src/.env
+front-end/public/env.js
 
 front-end/npm-debug.log*
 front-end/yarn-debug.log*
